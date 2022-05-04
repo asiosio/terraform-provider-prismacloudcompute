@@ -117,6 +117,11 @@ func resourceCredentials() *schema.Resource {
 				Optional:    true,
 				Description: "Indicates if authentication should be done with the instance's attached credentials (EC2 IAM Role).",
 			},
+			"external": {
+				Type:        schema.TypeBool,
+				Optional:    true,
+				Description: "Indicates if the provided credential is external (Prisma Cloud platform).",
+			},
 		},
 	}
 }
@@ -158,6 +163,7 @@ func readCredentials(d *schema.ResourceData, meta interface{}) error {
 	d.Set("type", retrievedCredential.Type)
 	d.Set("url", retrievedCredential.Url)
 	d.Set("use_aws_role", retrievedCredential.UseAWSRole)
+	d.Set("external", retrievedCredential.External)
 
 	return nil
 }
